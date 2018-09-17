@@ -15,6 +15,6 @@ def index(request):
     payloads = {'user_id': user_id, 'access_token': access_token, 'order': 'random', 'fields': 'nickname',
                     'count': 5, 'v': v}
     response = requests.get('https://api.vk.com/method/friends.get', params=payloads)
-    friends = response.json().get('response')['items']
+    friends = response.json().get('response').get('items')
 
     return render(request, 'test/index.html', {'friends': friends})
