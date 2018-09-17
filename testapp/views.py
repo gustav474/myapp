@@ -12,14 +12,9 @@ def index(request):
     access_token = request.GET['access_token']
     user_id = request.GET['user_id']
 
-    def get_friends():
-        payloads = {'user_id': user_id, 'access_token': access_token, 'order': 'random', 'fields': 'nickname',
+    payloads = {'user_id': user_id, 'access_token': access_token, 'order': 'random', 'fields': 'nickname',
                     'count': 5, 'v': v}
-        response = requests.get('https://api.vk.com/method/friends.get', params=payloads)
+    response = requests.get('https://api.vk.com/method/friends.get', params=payloads)
+    friends = response.json()['response']['items']
 
-        friends = response.json()['response']['items']
-        return friends
-
-
-
-    return render(request, 'test/index.html', {'friends': get_friends()})
+    return render(request, 'test/index.html', {'friends': friends})
